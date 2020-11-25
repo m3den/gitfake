@@ -4,14 +4,18 @@ from datetime import datetime, date
 from datetime import timedelta
 from random import randint
 
-REPO_PATH = '/repo/'
+REPO_PATH = '/app/repo/'
 
 
 count = 1
 today = datetime.now()
 gitFake = randint(1, 10)
 
+os.system(f'git clone git@github.com:m3den/gitfake.git {REPO_PATH}')
+
+
 while gitFake > 0:
+    
     today = today - timedelta(0, count * randint(1, 3), count * randint(2, 9), count * randint(3, 6))
     strtoday = today.strftime('%a %b %d %H:%M:%S %Y -0600')
     command = f'cd {REPO_PATH} && git commit --allow-empty -m "{strtoday}" --date="{strtoday}"'
@@ -19,3 +23,4 @@ while gitFake > 0:
     gitFake -= 1
 
 os.system(f'cd {REPO_PATH} && git push origin main')
+os.system(f'rm -rf {REPO_PATH}')
