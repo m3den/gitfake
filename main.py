@@ -25,12 +25,7 @@ in_repo = lambda s: f'cd {GIT_REPO_FOLDER}; {s}'
 with_id_rsa = lambda s: f'ssh-agent bash -c "ssh-add {ID_RSA_FILE}; {s}"'
 
 
-# Check daily commits
-os.system('')
-last_commit_date = os.popen(in_repo('git log -1 --format="%at" | xargs -I{} date -d @{} +%Y-%m-%d')).read().strip()
-if last_commit_date == str(date.today()):
-    log.info('already has commits today')
-    exit(0)
+
 
 # Recreate id_rsa
 os.system(f'rm -rf {SSH_FOLDER}')
@@ -43,6 +38,13 @@ os.system(f'chmod 0600 {ID_RSA_FILE}')
 # Clone git-repo
 os.system(f'rm -rf {GIT_REPO_FOLDER}')
 os.system(with_id_rsa(f'git clone {GIT_REPO} {GIT_REPO_FOLDER}'))
+
+# Check daily commits
+os.system('')
+last_commit_date = os.popen(in_repo('git log -1 --format="%at" | xargs -I{} date -d @{} +%Y-%m-%d')).read().strip()
+if last_commit_date == str(date.today()):
+    log.info('already has commits today')
+    exit(0)
 
 # Configure git
 os.system(in_repo(f'git config --local user.name "{GIT_USER_NAME}"'))
