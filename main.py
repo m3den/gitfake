@@ -40,11 +40,11 @@ os.system(f'rm -rf {GIT_REPO_FOLDER}')
 os.system(with_id_rsa(f'git clone {GIT_REPO} {GIT_REPO_FOLDER}'))
 
 # Check daily commits
-os.system('')
-last_commit_date = os.popen(in_repo('git log -1 --format="%at" | xargs -I{} date -d @{} +%Y-%m-%d')).read().strip()
-if last_commit_date == str(date.today()):
-    log.info('already has commits today')
-    exit(0)
+# os.system('')
+# last_commit_date = os.popen(in_repo('git log -1 --format="%at" | xargs -I{} date -d @{} +%Y-%m-%d')).read().strip()
+# if last_commit_date == str(date.today()):
+#     log.info('already has commits today')
+#     exit(0)
 
 # Configure git
 os.system(in_repo(f'git config --local user.name "{GIT_USER_NAME}"'))
