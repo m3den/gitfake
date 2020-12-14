@@ -25,8 +25,6 @@ in_repo = lambda s: f'cd {GIT_REPO_FOLDER}; {s}'
 with_id_rsa = lambda s: f'ssh-agent bash -c "ssh-add {ID_RSA_FILE}; {s}"'
 
 
-
-
 # Recreate id_rsa
 os.system(f'rm -rf {SSH_FOLDER}')
 os.system(f'mkdir -p {SSH_FOLDER}')
@@ -38,7 +36,7 @@ os.system(f'chmod 0600 {ID_RSA_FILE}')
 # Clone git-repo
 os.system("git config core.sshCommand 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'")
 os.system(f'rm -rf {GIT_REPO_FOLDER}')
-os.system(with_id_rsa(f'yes yes | git clone {GIT_REPO} {GIT_REPO_FOLDER}'))
+os.system(with_id_rsa(f'yes yes 2>/dev/null | git clone {GIT_REPO} {GIT_REPO_FOLDER}'))
 
 # Check daily commits
 # last_commit_date = os.popen(in_repo('git log -1 --format="%at" | xargs -I{} date -d @{} +%Y-%m-%d')).read().strip()
