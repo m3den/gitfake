@@ -36,11 +36,11 @@ with open(ID_RSA_FILE, 'w') as id_rsa_file:
 os.system(f'chmod 0600 {ID_RSA_FILE}')
 
 # Clone git-repo
+os.system("git config core.sshCommand 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'")
 os.system(f'rm -rf {GIT_REPO_FOLDER}')
 os.system(with_id_rsa(f'yes yes | git clone {GIT_REPO} {GIT_REPO_FOLDER}'))
 
 # Check daily commits
-# os.system('')
 # last_commit_date = os.popen(in_repo('git log -1 --format="%at" | xargs -I{} date -d @{} +%Y-%m-%d')).read().strip()
 # if last_commit_date == str(date.today()):
 #     log.info('already has commits today')
