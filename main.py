@@ -37,7 +37,7 @@ os.system(f'chmod 0600 {ID_RSA_FILE}')
 
 # Clone git-repo
 os.system(f'rm -rf {GIT_REPO_FOLDER}')
-os.system(with_id_rsa(f'git clone {GIT_REPO} {GIT_REPO_FOLDER}'))
+os.system(with_id_rsa(f'yes yes | git clone {GIT_REPO} {GIT_REPO_FOLDER}'))
 
 # Check daily commits
 # os.system('')
